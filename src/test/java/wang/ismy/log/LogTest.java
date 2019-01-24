@@ -14,6 +14,13 @@ public class LogTest {
 
     @Test
     public void run(){
+
+        log.setDestination(new Destination(System.out,System.out));
+        log.info("测试输出：{1}",LocalDate.now());
+        log.error("错误输出:{1},{2}",Thread.currentThread(),LocalDate.now());
+
+        log.setLogPrinter((log, level, msg) -> level+msg+"\n");
+        System.out.println("----------------");
         log.info("测试输出：{1}",LocalDate.now());
         log.error("错误输出:{1},{2}",Thread.currentThread(),LocalDate.now());
     }

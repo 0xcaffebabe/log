@@ -8,6 +8,8 @@ public class Log {
 
     private String logName;
 
+    private LogPrinter logPrinter = new DefaultLogPrinter();
+
     private Log(String logName) {
         this.logName = logName;
     }
@@ -20,6 +22,14 @@ public class Log {
         return new Log(klass.getName());
     }
 
+    public Destination getDestination() {
+        return destination;
+    }
+
+    public String getLogName() {
+        return logName;
+    }
+
     public void info(String format, Object... params) {
 
         String result = format;
@@ -28,7 +38,7 @@ public class Log {
             result = result.replace("{"+(i+1)+"}",params[i].toString());
         }
 
-        destination.printOut(LocalDateTime.now()+"\t[INFO]\t"+logName+" : "+result+"\n");
+        destination.printOut(logPrinter.print(this,LogLevel.INFO,result));
     }
 
     public void warm(String format, Object... params) {
@@ -39,7 +49,7 @@ public class Log {
             result = result.replace("{"+(i+1)+"}",params[i].toString());
         }
 
-        destination.printOut(LocalDateTime.now()+"\t[WARM]\t"+logName+" : "+result+"\n");
+        destination.printOut(logPrinter.print(this,LogLevel.WARM,result));
     }
 
     public void error(String format, Object... params) {
@@ -50,8 +60,15 @@ public class Log {
             result = result.replace("{"+(i+1)+"}",params[i].toString());
         }
 
-        destination.printErr(LocalDateTime.now()+"\t[ERROR]\t"+logName+" : "+result+"\n");
+        destination.printErr(logPrinter.print(this,LogLevel.ERROR,result));
     }
 
 
+    public void setDestination(Destination destination) {
+        this.destination = destination;
+    }
+
+    public void setLogPrinter(LogPrinter logPrinter) {
+        this.logPrinter = logPrinter;
+    }
 }
