@@ -12,8 +12,6 @@ public class Log {
         this.logName = logName;
     }
 
-
-
     public synchronized static Log getInstance(String logName) {
         return new Log(logName);
     }
@@ -30,7 +28,7 @@ public class Log {
             result = result.replace("{"+(i+1)+"}",params[i].toString());
         }
 
-        destination.printOut(LocalDateTime.now()+" [INFO]  "+logName+" : "+result+"\n");
+        destination.printOut(LocalDateTime.now()+"\t[INFO]\t"+logName+" : "+result+"\n");
     }
 
     public void warm(String format, Object... params) {
@@ -41,7 +39,7 @@ public class Log {
             result = result.replace("{"+(i+1)+"}",params[i].toString());
         }
 
-        destination.printOut(LocalDateTime.now()+" [WARM]  "+logName+" : "+result+"\n");
+        destination.printOut(LocalDateTime.now()+"\t[WARM]\t"+logName+" : "+result+"\n");
     }
 
     public void error(String format, Object... params) {
@@ -52,7 +50,7 @@ public class Log {
             result = result.replace("{"+(i+1)+"}",params[i].toString());
         }
 
-        destination.printErr(LocalDateTime.now()+" [ERROR]  "+logName+" : "+result+"\n");
+        destination.printErr(LocalDateTime.now()+"\t[ERROR]\t"+logName+" : "+result+"\n");
     }
 
 
