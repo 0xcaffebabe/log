@@ -19,7 +19,8 @@ public class LogTest {
         log.info("测试输出：{1}",LocalDate.now());
         log.error("错误输出:{1},{2}",Thread.currentThread(),LocalDate.now());
 
-        log.setLogPrinter((log, level, msg) -> level+msg+"\n");
+        log.setLogPrinter((log, level, msg) -> "["+level+"]\t"+msg+"\n");
+
         System.out.println("----------------");
         log.info("测试输出：{1}",LocalDate.now());
         log.error("错误输出:{1},{2}",Thread.currentThread(),LocalDate.now());

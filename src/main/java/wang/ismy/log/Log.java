@@ -8,7 +8,7 @@ public class Log {
 
     private String logName;
 
-    private LogPrinter logPrinter = new DefaultLogPrinter();
+    private static LogPrinter logPrinter = new DefaultLogPrinter();
 
     private Log(String logName) {
         this.logName = logName;
